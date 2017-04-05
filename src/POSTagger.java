@@ -8,7 +8,7 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 
 public class POSTagger {
 	private final String MATCH_UNWANTED_CHARS = "[^a-zA-Z\\-\\' ]";
-	private String posModel = "stanford-postagger-2016-10-31/models/english-left3words-distsim.tagger";
+	private String posModel = "lib/stanford-postagger-2016-10-31/models/english-left3words-distsim.tagger";
 	private MaxentTagger tagger;
 
 	public POSTagger() {
