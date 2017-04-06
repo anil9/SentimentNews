@@ -10,8 +10,9 @@ public class Sentiment {
 		fillSentimentMap();
 	}
 
-	public Sentiment(Map<String, Integer> sentiments) {
-		this.sentiments = sentiments;
+	public Sentiment(Map<String, Integer> inSentiments) {
+		this.sentiments = new HashMap<String, Integer>();
+		inSentiments.forEach((k, v) -> this.sentiments.put(k.toLowerCase(), v));
 	}
 
 	private void fillSentimentMap() {
@@ -29,6 +30,7 @@ public class Sentiment {
 	public int calcNumPositive(List<String> words) {
 		int positives = 0;
 		for (String word : words) {
+			word = word.toLowerCase();
 			if (sentiments.containsKey(word) && sentiments.get(word) > 0) {
 				positives++;
 			} else if (!sentiments.containsKey(word)) {
