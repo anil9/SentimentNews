@@ -8,13 +8,23 @@ public class SentimentHandler {
 	private Content content;
 	private POSTagger tagger;
 
+	private SentimentHandler() {
+	}
+
 	public SentimentHandler(Sentiment sentiment, Content content, POSTagger tagger) {
 		this.sentiment = sentiment;
 		this.content = content;
 		this.tagger = tagger;
 	}
 
-	public List<Article> getPositiveArticles(double positiveThreshold) {
+	/**
+	 * Returns a list of articles that reaches at least the input threshold percentage
+	 * 
+	 * @param threshold
+	 *            The percentage of positivity an article has to reach
+	 * @return Returns the list of positive articles
+	 */
+	public List<Article> getPositiveArticles(double threshold) {
 		List<Article> allArticles = content.getArticles();
 		List<Article> positiveArticles = new ArrayList<Article>();
 		for (Article article : allArticles) {
@@ -23,7 +33,7 @@ public class SentimentHandler {
 			double percentPositive = sentiment.calcPositivePercentage(allWords);
 			// double percentPositive = sentiment.calcPositivePercentage(adjectives); // with adjectives
 			// System.out.println("percentPositive was: " + percentPositive);
-			if (percentPositive >= positiveThreshold) {
+			if (percentPositive >= threshold) {
 				positiveArticles.add(article);
 			}
 		}
@@ -31,18 +41,4 @@ public class SentimentHandler {
 		return positiveArticles;
 	}
 
-	public static void main(String[] args) {
-		// Sample setup
-
-		double positiveThreshold = 0.5;
-		Content content = new Content("reddit-r-all");
-		// System.out.println("All headlines:");
-		// content.getArticles().forEach((article) -> System.out.println(article.getHeader()));
-		System.out.println("Headlines with positive sentiment:");
-		List<Article> positiveArticles = new SentimentHandler(new Sentiment(), content, new POSTagger())
-				.getPositiveArticles(positiveThreshold);
-		positiveArticles.forEach((article) -> System.out.println(article.getHeader()));
-		positiveArticles.forEach((article) -> WebsiteOpener.open(article.getUrl()));
-
-	}
 }
