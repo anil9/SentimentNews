@@ -37,6 +37,14 @@ public class Content {
 		articles = importArticles();
 	}
 
+	public Content(List<Article> articles) {
+		this.articles = articles;
+	}
+
+	public List<Article> getArticles() {
+		return articles;
+	}
+
 	private List<Article> importArticles() {
 		String url = API_URL + "?source=" + website + "&apikey=" + APIKey;
 		String jsonResult = null;
