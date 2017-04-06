@@ -5,6 +5,9 @@ public class Article {
 	private String header, url;
 	private List<String> adjectives;
 
+	private Article() {
+	}
+
 	public Article(String header, String url) {
 		this.header = header;
 		this.url = url;
