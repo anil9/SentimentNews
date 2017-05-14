@@ -5,13 +5,13 @@ import java.util.List;
 public class SentimentHandler {
 
 	private Sentiment sentiment;
-	private Content content;
+	private ArticleContainer content;
 	private POSTagger tagger;
 
 	private SentimentHandler() {
 	}
 
-	public SentimentHandler(Sentiment sentiment, Content content, POSTagger tagger) {
+	public SentimentHandler(Sentiment sentiment, ArticleContainer content, POSTagger tagger) {
 		this.sentiment = sentiment;
 		this.content = content;
 		this.tagger = tagger;
