@@ -1,20 +1,22 @@
 import java.util.List;
 
 public class Main {
+	public static final String API_KEY_PATH = "C:/SentimentNews/key.txt";
 
 	public static void main(String[] args) {
 		// Sample setup
 
 		double positiveThreshold = 0.5;
-		ArticleContainer content = new ArticleContainer();
-		content.importArticlesFromSite("google-news");
+		NewsAPICommunicator content = new NewsAPICommunicator(new APIKey(API_KEY_PATH));
+		List<Article> articles = content.getArticlesFromSite("google-news");
 		// System.out.println("All headlines:");
 		// content.getArticles().forEach((article) -> System.out.println(article.getHeader()));
 		System.out.println("Headlines with positive sentiment:");
-		List<Article> positiveArticles = new SentimentHandler(new Sentiment(), content, new POSTagger())
-				.getPositiveArticles(positiveThreshold);
+		List<Article> positiveArticles = new SentimentHandler(new Sentiment(), new POSTagger())
+				.getPositiveArticles(articles, positiveThreshold);
 		positiveArticles.forEach((article) -> System.out.println(article.getHeader()));
 		positiveArticles.forEach((article) -> WebsiteOpener.open(article.getUrl()));
 
 	}
+
 }

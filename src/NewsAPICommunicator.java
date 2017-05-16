@@ -1,15 +1,9 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,40 +14,16 @@ import org.json.JSONObject;
  *
  */
 
-public class ArticleContainer {
+public class NewsAPICommunicator {
 
 	private final String API_URL = "https://newsapi.org/v1/articles";
-	private final String API_KEY_PATH = "C:/SentimentNews/key.txt";
-	private List<Article> articles;
-	private String APIKey;
+	private APIKey key;
 
-	public ArticleContainer() {
-		importAPIKey();
+	public NewsAPICommunicator(APIKey key) {
+		this.key = key;
 	}
 
-	private void importAPIKey() {
-		try {
-			readAPIKeyFromPath(API_KEY_PATH);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void readAPIKeyFromPath(String path) throws FileNotFoundException {
-		Scanner sc = new Scanner(new File(path));
-		APIKey = sc.nextLine().trim();
-		sc.close();
-	}
-
-	public List<Article> getArticles() {
-		return articles;
-	}
-
-	public void importArticlesFromSite(String website) {
-		articles = importArticles(website);
-	}
-
-	private List<Article> importArticles(String website) {
+	public List<Article> getArticlesFromSite(String website) {
 		String url = buildURL(website);
 		String jsonResponse = readSiteResponse(url);
 		List<Article> articles = populateArticleListFromJSON(jsonResponse);
@@ -61,14 +31,14 @@ public class ArticleContainer {
 	}
 
 	private String buildURL(String website) {
-		return API_URL + "?source=" + website + "&apikey=" + APIKey;
+		return API_URL + "?source=" + website + "&apikey=" + key.get();
 	}
 
 	private String readSiteResponse(String url) {
 		String response = "";
 		try {
 			InputStream siteResponseStream = websiteResponseStream(url);
-			response = readFromStream(siteResponseStream);
+			response = inputStreamToString(siteResponseStream);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -82,15 +52,9 @@ public class ArticleContainer {
 		return con.getInputStream();
 	}
 
-	private String readFromStream(InputStream siteResponseStream) throws IOException {
-		StringBuilder response = new StringBuilder();
-		BufferedReader in = new BufferedReader(new InputStreamReader(siteResponseStream, StandardCharsets.UTF_8));
-		String inputLine;
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
-		}
-		in.close();
-		return response.toString();
+	private String inputStreamToString(InputStream in) {
+		java.util.Scanner s = new java.util.Scanner(in).useDelimiter("\\A");
+		return s.hasNext() ? s.next() : "";
 	}
 
 	private List<Article> populateArticleListFromJSON(String jsonResponse) {
@@ -117,12 +81,6 @@ public class ArticleContainer {
 			jsonArticles.add(jsonArticle);
 		}
 		return jsonArticles;
-	}
-
-	public static void main(String[] args) {
-		ArticleContainer c = new ArticleContainer();
-		c.importArticlesFromSite("reddit-r-all");
-		c.articles.forEach((a) -> System.out.println(a.getHeader()));
 	}
 
 }

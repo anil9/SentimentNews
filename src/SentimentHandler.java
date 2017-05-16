@@ -5,15 +5,14 @@ import java.util.List;
 public class SentimentHandler {
 
 	private Sentiment sentiment;
-	private ArticleContainer content;
+	private NewsAPICommunicator content;
 	private POSTagger tagger;
 
 	private SentimentHandler() {
 	}
 
-	public SentimentHandler(Sentiment sentiment, ArticleContainer content, POSTagger tagger) {
+	public SentimentHandler(Sentiment sentiment, POSTagger tagger) {
 		this.sentiment = sentiment;
-		this.content = content;
 		this.tagger = tagger;
 	}
 
@@ -24,8 +23,7 @@ public class SentimentHandler {
 	 *            The percentage of positivity an article has to reach
 	 * @return Returns the list of positive articles
 	 */
-	public List<Article> getPositiveArticles(double threshold) {
-		List<Article> allArticles = content.getArticles();
+	public List<Article> getPositiveArticles(List<Article> allArticles, double threshold) {
 		List<Article> positiveArticles = new ArrayList<Article>();
 		for (Article article : allArticles) {
 			// List<String> adjectives = tagger.extractAdjectives(article.getHeader());
