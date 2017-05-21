@@ -12,11 +12,11 @@ public class SentimentTest {
 
 	@Before
 	public void setup() {
-		HashMap<String, Integer> sentiments = new HashMap<String, Integer>();
-		sentiments.put("pos1", 1);
-		sentiments.put("Pos2", 1);
-		sentiments.put("neutral", 0);
-		sentiments.put("neg1", -1);
+		HashMap<String, SentimentEnum> sentiments = new HashMap<>();
+		sentiments.put("pos1", SentimentEnum.POS);
+		sentiments.put("Pos2", SentimentEnum.POS);
+		sentiments.put("neutral", SentimentEnum.NEU);
+		sentiments.put("neg1", SentimentEnum.NEG);
 		sentiment = new Sentiment(sentiments);
 	}
 

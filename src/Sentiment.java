@@ -7,20 +7,18 @@ import java.util.List;
 import java.util.Map;
 
 public class Sentiment {
-	private Map<String, Integer> sentiments;
+	private Map<String, SentimentEnum> sentiments;
 	private String filepath = "res/sentiments.txt";
-	private final int POS = 1;
-	private final int NEG = -1;
-	private final int NEU = 0;
+	private SentimentTranslator translator = new SentimentTranslator();
 
 	public Sentiment() {
-		sentiments = new HashMap<String, Integer>();
+		sentiments = new HashMap<String, SentimentEnum>();
 		fillSentimentMap();
 	}
 
-	public Sentiment(Map<String, Integer> inSentiments) {
-		this.sentiments = new HashMap<String, Integer>();
-		inSentiments.forEach((k, v) -> this.sentiments.put(k.toLowerCase(), v));
+	public Sentiment(Map<String, SentimentEnum> inputSentiments) {
+		this.sentiments = new HashMap<String, SentimentEnum>();
+		inputSentiments.forEach((k, v) -> this.sentiments.put(k.toLowerCase(), v));
 	}
 
 	private void fillSentimentMap() {
@@ -32,7 +30,7 @@ public class Sentiment {
 			while ((line = reader.readLine()) != null) {
 				String values[] = line.trim().split("\\s+");
 				if (values.length == 2) {
-					sentiments.put(values[0], translateSentiment(values[1]));
+					sentiments.put(values[0], translator.translateSentiment(values[1]));
 				}
 			}
 			reader.close();
@@ -40,24 +38,6 @@ public class Sentiment {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	private Integer translateSentiment(String sentiment) {
-		sentiment = sentiment.toLowerCase();
-		switch (sentiment) {
-		case "neg":
-			return NEG;
-		case "pos":
-			return POS;
-		case "neu":
-			return NEU;
-		case "both":
-			return NEU;
-		default:
-			System.err.println("Error in sentiment file. Couldn't translate sentiment: " + sentiment);
-			return null;
-		}
-
 	}
 
 	/**
@@ -71,7 +51,7 @@ public class Sentiment {
 		int positives = 0;
 		for (String word : words) {
 			word = word.toLowerCase();
-			if (sentiments.containsKey(word) && sentiments.get(word) > 0) {
+			if (sentiments.containsKey(word) && sentiments.get(word).equals(SentimentEnum.POS)) {
 				positives++;
 			} else if (!sentiments.containsKey(word)) {
 				// TODO: use FeedbackHandler to ask for user input
@@ -87,10 +67,10 @@ public class Sentiment {
 		for (String word : words) {
 			String lowerCaseWord = word.toLowerCase();
 			if (sentiments.containsKey(lowerCaseWord)) {
-				int sentiment = sentiments.get(lowerCaseWord);
-				if (sentiment == POS) {
+				SentimentEnum sentiment = sentiments.get(lowerCaseWord);
+				if (sentiment == SentimentEnum.POS) {
 					positives++;
-				} else if (sentiment == NEG) {
+				} else if (sentiment == SentimentEnum.NEG) {
 					negatives++;
 				} else {
 					neutrals++;
