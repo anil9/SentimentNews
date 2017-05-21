@@ -6,7 +6,7 @@ import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestSentiment {
+public class SentimentTest {
 
 	Sentiment sentiment;
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class TestPOSTagger {
+public class POSTaggerTest {
 
 	private POSTagger tagger = new POSTagger();
 
