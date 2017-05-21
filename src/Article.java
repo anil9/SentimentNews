@@ -1,14 +1,16 @@
+import java.net.URL;
 import java.util.List;
 
 public class Article {
 
-	private String header, url;
+	private String header;
+	private URL url;
 	private List<String> adjectives;
 
 	private Article() {
 	}
 
-	public Article(String header, String url) {
+	public Article(String header, URL url) {
 		this.header = header;
 		this.url = url;
 	}
@@ -17,7 +19,7 @@ public class Article {
 		return header;
 	}
 
-	public String getUrl() {
+	public URL getUrl() {
 		return url;
 	}
 

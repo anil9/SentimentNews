@@ -1,3 +1,4 @@
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +14,14 @@ import org.json.JSONObject;
 
 public class NewsAPICommunication {
 
+	private WebCommunication webCommunication;
+
+	public NewsAPICommunication(WebCommunication webCommunication) {
+		this.webCommunication = webCommunication;
+	}
+
 	public List<Article> getArticlesFromSite(URL url) {
-		String jsonResponse = new WebCommunication().readSiteResponse(url);
+		String jsonResponse = webCommunication.readSiteResponse(url);
 		List<Article> articles = translateJSONToArticles(jsonResponse);
 		return articles;
 	}
@@ -24,9 +31,9 @@ public class NewsAPICommunication {
 		try {
 			List<JSONObject> jsonArticles = ConvertToJSONObjects(jsonResponse);
 			for (JSONObject jsonArticle : jsonArticles) {
-				articles.add(new Article(jsonArticle.getString("title"), jsonArticle.getString("url")));
+				articles.add(new Article(jsonArticle.getString("title"), new URL(jsonArticle.getString("url"))));
 			}
-		} catch (JSONException e) {
+		} catch (JSONException | MalformedURLException e) {
 			e.printStackTrace();
 		}
 		return articles;

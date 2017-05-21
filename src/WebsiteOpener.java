@@ -1,14 +1,14 @@
 import java.awt.Desktop;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 public class WebsiteOpener {
 
-	public static void open(String url) {
+	public static void open(URL url) {
 		if (Desktop.isDesktopSupported()) {
 			try {
-				Desktop.getDesktop().browse(new URI(url));
+				Desktop.getDesktop().browse((url.toURI()));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
