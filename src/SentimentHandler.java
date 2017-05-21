@@ -5,37 +5,45 @@ import java.util.List;
 public class SentimentHandler {
 
 	private Sentiment sentiment;
-	private NewsAPICommunication content;
+	private double positiveThreshold;
 	private POSTagger tagger;
-
-	private SentimentHandler() {
-	}
 
 	public SentimentHandler(Sentiment sentiment, POSTagger tagger) {
 		this.sentiment = sentiment;
 		this.tagger = tagger;
 	}
 
+	public void setPositiveThreshold(double threshold) {
+		this.positiveThreshold = threshold;
+	}
+
 	/**
-	 * Returns a list of articles that reaches at least the input threshold percentage
+	 * Returns a list of articles that reaches at least the positive threshold percentage
 	 * 
-	 * @param threshold
-	 *            The percentage of positivity an article has to reach
 	 * @return Returns the list of positive articles
 	 */
-	public List<Article> getPositiveArticles(List<Article> allArticles, double threshold) {
+	public List<Article> getPositiveArticles(List<Article> allArticles) {
 		List<Article> positiveArticles = new ArrayList<Article>();
 		for (Article article : allArticles) {
-			// List<String> adjectives = tagger.extractAdjectives(article.getHeader());
 			List<String> allWords = Arrays.asList(article.getHeader().split(" "));
-			double percentPositive = sentiment.calcPositivePercentage(allWords);
-			// double percentPositive = sentiment.calcPositivePercentage(adjectives); // with adjectives
-			// System.out.println("percentPositive was: " + percentPositive);
-			if (percentPositive >= threshold) {
+			double percentPositive = sentiment.percentPositiveWords(allWords);
+			if (percentPositive >= positiveThreshold) {
 				positiveArticles.add(article);
 			}
 		}
 
+		return positiveArticles;
+	}
+
+	public List<Article> getPositiveArticlesConsideringAdjectives(List<Article> allArticles) {
+		List<Article> positiveArticles = new ArrayList<Article>();
+		for (Article article : allArticles) {
+			List<String> adjectives = tagger.extractAdjectives(article.getHeader());
+			double percentPositive = sentiment.percentPositiveWords(adjectives);
+			if (percentPositive >= positiveThreshold) {
+				positiveArticles.add(article);
+			}
+		}
 		return positiveArticles;
 	}
 
