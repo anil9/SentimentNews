@@ -7,7 +7,7 @@ public class Main {
 		// Sample setup
 
 		double positiveThreshold = 0.5;
-		NewsAPICommunication content = new NewsAPICommunication();
+		NewsAPICommunication content = new NewsAPICommunication(new WebCommunication());
 		URLFactory urlFactory = new URLFactory();
 		List<Article> articles = content.getArticlesFromSite(urlFactory.constructNewsAPISite("google-news"));
 		// System.out.println("All headlines:");
