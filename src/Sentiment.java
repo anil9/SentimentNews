@@ -97,11 +97,11 @@ public class Sentiment {
 				}
 			} else if (!sentiments.containsKey(lowerCaseWord)) {
 				// TODO: use FeedbackHandler to ask for user input
-//				if (Character.isUpperCase(word.charAt(0)) || word.length() < 3) {
-//					// probably a name, skip.
-//				} else {
-//					System.out.println("Don't recognize the word [" + word + "] Please provide feedback");
-//				}
+				// if (Character.isUpperCase(word.charAt(0)) || word.length() < 3) {
+				// // probably a name, skip.
+				// } else {
+				// System.out.println("Don't recognize the word [" + word + "] Please provide feedback");
+				// }
 			}
 		}
 		if (positives + negatives == 0)

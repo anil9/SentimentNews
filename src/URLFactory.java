@@ -6,7 +6,7 @@ public class URLFactory {
 	private final String API_KEY_PATH = "C:/SentimentNews/key.txt";
 	private APIKey newsAPIKey;
 
-	public URL constructNewsAPISite(String nameOfSite) {
+	public URL newsAPIURL(String nameOfSite) {
 		if (newsAPIKey == null) {
 			newsAPIKey = new APIKey(API_KEY_PATH);
 		}

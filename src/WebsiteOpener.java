@@ -9,11 +9,7 @@ public class WebsiteOpener {
 		if (Desktop.isDesktopSupported()) {
 			try {
 				Desktop.getDesktop().browse((url.toURI()));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
+			} catch (IOException | URISyntaxException e) {
 				e.printStackTrace();
 			}
 

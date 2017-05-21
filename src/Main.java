@@ -9,7 +9,7 @@ public class Main {
 		double positiveThreshold = 0.5;
 		NewsAPICommunication content = new NewsAPICommunication(new WebCommunication());
 		URLFactory urlFactory = new URLFactory();
-		List<Article> articles = content.getArticlesFromSite(urlFactory.constructNewsAPISite("google-news"));
+		List<Article> articles = content.getArticlesFromSite(urlFactory.newsAPIURL("google-news"));
 		// System.out.println("All headlines:");
 		// content.getArticles().forEach((article) -> System.out.println(article.getHeader()));
 		System.out.println("Headlines with positive sentiment:");
