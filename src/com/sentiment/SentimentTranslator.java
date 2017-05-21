@@ -1,8 +1,10 @@
 package com.sentiment;
 
+import java.io.IOException;
+
 public class SentimentTranslator {
 
-	public SentimentEnum translateSentiment(String sentiment) {
+	public SentimentEnum translateSentiment(String sentiment) throws IOException {
 		sentiment = sentiment.toLowerCase();
 		switch (sentiment) {
 		case "neg":
@@ -14,8 +16,7 @@ public class SentimentTranslator {
 		case "both":
 			return SentimentEnum.NEU;
 		default:
-			System.err.println("Error in sentiment file. Couldn't translate sentiment: " + sentiment);
-			return null;
+			throw new IOException("Error in sentiment file. Couldn't translate sentiment: " + sentiment);
 		}
 	}
 }
