@@ -1,3 +1,4 @@
+package com.communication;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -6,6 +7,8 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.article.Article;
 
 /**
  * This application is receiving news from News API for free. Check them out at http://www.newsapi.org

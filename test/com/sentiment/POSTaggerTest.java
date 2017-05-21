@@ -1,9 +1,12 @@
+package com.sentiment;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
+
+import com.sentiment.POSTagger;
 
 public class POSTaggerTest {
 

@@ -1,3 +1,4 @@
+package com.communication;
 import static org.junit.Assert.assertEquals;
 
 import java.net.MalformedURLException;
@@ -7,6 +8,10 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import com.article.Article;
+import com.communication.NewsAPICommunication;
+import com.communication.WebCommunication;
 
 public class NewsAPICommunicationTest {
 

@@ -1,6 +1,15 @@
 import java.io.File;
 import java.util.List;
 
+import com.article.Article;
+import com.communication.NewsAPICommunication;
+import com.communication.URLFactory;
+import com.communication.WebCommunication;
+import com.communication.WebsiteOpener;
+import com.sentiment.POSTagger;
+import com.sentiment.Sentiment;
+import com.sentiment.SentimentHandler;
+
 public class Main {
 	public static final String API_KEY_PATH = "C:/SentimentNews/key.txt";
 	public static final String SENTIMENTS_FILE_PATH = "res/sentiments.txt";

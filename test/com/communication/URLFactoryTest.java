@@ -1,8 +1,11 @@
+package com.communication;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
 
 import org.junit.Test;
+
+import com.communication.URLFactory;
 
 public class URLFactoryTest {
 

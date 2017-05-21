@@ -1,3 +1,4 @@
+package com.sentiment;
 
 public class SentimentTranslator {
 
