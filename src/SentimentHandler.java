@@ -5,7 +5,7 @@ import java.util.List;
 public class SentimentHandler {
 
 	private Sentiment sentiment;
-	private NewsAPICommunicator content;
+	private NewsAPICommunication content;
 	private POSTagger tagger;
 
 	private SentimentHandler() {
