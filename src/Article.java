@@ -7,9 +7,6 @@ public class Article {
 	private URL url;
 	private List<String> adjectives;
 
-	private Article() {
-	}
-
 	public Article(String header, URL url) {
 		this.header = header;
 		this.url = url;
